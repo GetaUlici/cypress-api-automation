@@ -1,13 +1,13 @@
 /// <reference types="cypress" />
 
-describe("Get Brand by ID", () => {
-  it("Create a new brand and retrieve it by ID", () => {
+describe('Get Brand by ID', () => {
+  it('Create a new brand and retrieve it by ID', () => {
     const uniqueId = Date.now();
     let brandId;
 
     cy.request({
-      method: "POST",
-      url: "/brands",
+      method: 'POST',
+      url: '/brands',
       body: {
         name: `brand-${uniqueId}`,
         slug: `brand-${uniqueId}`,
@@ -17,10 +17,10 @@ describe("Get Brand by ID", () => {
       // Extract the ID from the response body
       brandId = response.body.id;
       expect(brandId).to.exist;
-      
+
       // Perform GET request using the retrieved ID
       cy.request({
-        method: "GET",
+        method: 'GET',
         url: `/brands/${brandId}`,
       }).then((getResponse) => {
         expect(getResponse.status).to.eql(200);

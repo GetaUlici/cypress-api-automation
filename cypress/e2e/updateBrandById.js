@@ -1,13 +1,13 @@
 /// <reference types="cypress" />
 
-describe("Put Brand by ID", () => {
-  it("Create a new brand and update it by ID", () => {
+describe('Put Brand by ID', () => {
+  it('Create a new brand and update it by ID', () => {
     const uniqueId = Date.now();
     let brandId;
 
     cy.request({
-      method: "POST",
-      url: "/brands",
+      method: 'POST',
+      url: '/brands',
       body: {
         name: `brand-${uniqueId}`,
         slug: `brand-${uniqueId}`,
@@ -19,7 +19,7 @@ describe("Put Brand by ID", () => {
       expect(brandId).to.exist;
 
       cy.request({
-        method: "PUT",
+        method: 'PUT',
         url: `/brands/${brandId}`,
         body: {
           name: `brand-${uniqueId}-updated`,

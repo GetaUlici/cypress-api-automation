@@ -12,9 +12,9 @@ This repository is a **work in progress** and serves as a proof of concept (POC)
 
 ## 🚀 Tech Stack
 
-* **Cypress** – API testing via `cy.request`
-* **Node.js** – JavaScript runtime (v18+ recommended)
-* **npm** – Dependency management
+- **Cypress** – API testing via `cy.request`
+- **Node.js** – JavaScript runtime (v18+ recommended)
+- **npm** – Dependency management
 
 ---
 
@@ -22,8 +22,8 @@ This repository is a **work in progress** and serves as a proof of concept (POC)
 
 ### Prerequisites
 
-* Node.js **18+**
-* npm (bundled with Node.js)
+- Node.js **18+**
+- npm (bundled with Node.js)
 
 ### Installation
 
@@ -91,17 +91,17 @@ package.json
 
 ## ⚙️ Configuration Notes
 
-* `baseUrl` is configured in `cypress.config.js`, allowing requests to use **relative paths only**
-* Tests rely on `cy.request()` for API interactions
-* Brand names and slugs are generated using `Date.now()` to avoid collisions
+- `baseUrl` is configured in `cypress.config.js`, allowing requests to use **relative paths only**
+- Tests rely on `cy.request()` for API interactions
+- Brand names and slugs are generated using `Date.now()` to avoid collisions
 
 ---
 
 ## ℹ️ Known Limitations
 
-* No authentication handling yet
-* Test data is not cleaned up after execution
-* Schema validation is minimal
+- No authentication handling yet
+- Test data is not cleaned up after execution
+- Schema validation is minimal
 
 These constraints are intentional for this POC.
 
@@ -109,15 +109,14 @@ These constraints are intentional for this POC.
 
 ## 🔮 Future Improvements
 
-* ✅ Add authentication support (tokens / headers)
-* 🧹 Implement test data cleanup (hooks or fixtures)
-* 📐 Add schema validation (e.g., JSON Schema)
-* 🔁 Improve reusability with custom commands
-* 📊 Add reporting (JUnit / Mochawesome)
+- ✅ Add authentication support (tokens / headers)
+- 🧹 Implement test data cleanup (hooks or fixtures)
+- 📐 Add schema validation (e.g., JSON Schema)
+- 🔁 Improve reusability with custom commands
+- 📊 Add reporting (JUnit / Mochawesome)
 
 ---
 
 ## 📌 Disclaimer
 
 This project is for **learning and demonstration purposes** and is not intended for production use.
-
