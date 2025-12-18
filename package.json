@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@faker-js/faker": "^9.9.0",
     "cypress": "^14.5.4",
     "prettier": "^3.7.4"
   }
