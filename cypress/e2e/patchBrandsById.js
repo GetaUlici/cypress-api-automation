@@ -1,9 +1,11 @@
 /// <reference types="cypress" />
+import { z } from 'zod';
 
 describe('Patch Brand by ID', () => {
   it('Create a new brand and patch it by ID', () => {
     const uniqueId = Date.now();
     let brandId;
+    const schema = z.object({ success: z.boolean() });
 
     cy.request({
       method: 'POST',
@@ -24,14 +26,16 @@ describe('Patch Brand by ID', () => {
         body: {
           slug: `brand-${uniqueId}-updated`,
         },
-      }).then((getResponse) => {
-        const responseBody = {
-          success: true,
-        };
+      })
+        .validateSchemaZod(schema)
+        .then((getResponse) => {
+          const responseBody = {
+            success: true,
+          };
 
-        expect(getResponse.status).to.eql(200);
-        expect(getResponse.body).to.eql(responseBody);
-      });
+          expect(getResponse.status).to.eql(200);
+          expect(getResponse.body).to.eql(responseBody);
+        });
     });
   });
 });

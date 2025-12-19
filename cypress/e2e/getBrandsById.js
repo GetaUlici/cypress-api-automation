@@ -1,9 +1,15 @@
 /// <reference types="cypress" />
+import { z } from 'zod';
 
 describe('Get Brand by ID', () => {
   it('Create a new brand and retrieve it by ID', () => {
     const uniqueId = Date.now();
     let brandId;
+    const schema = z.object({
+      id: z.string(),
+      name: z.string(),
+      slug: z.string(),
+    });
 
     cy.request({
       method: 'POST',
@@ -22,11 +28,13 @@ describe('Get Brand by ID', () => {
       cy.request({
         method: 'GET',
         url: `/brands/${brandId}`,
-      }).then((getResponse) => {
-        expect(getResponse.status).to.eql(200);
-        expect(getResponse.body.id).to.eql(brandId);
-        expect(getResponse.body.name).to.eql(`brand-${uniqueId}`);
-      });
+      })
+        .validateSchemaZod(schema)
+        .then((getResponse) => {
+          expect(getResponse.status).to.eql(200);
+          expect(getResponse.body.id).to.eql(brandId);
+          expect(getResponse.body.name).to.eql(`brand-${uniqueId}`);
+        });
     });
   });
 });
