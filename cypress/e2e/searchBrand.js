@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import { z } from 'zod';
 
 describe('Search Brand by query params', () => {
   it('Create a new brand and search for it by query params', () => {
@@ -10,24 +11,36 @@ describe('Search Brand by query params', () => {
       slug: `brand-${uniqueId}`,
     };
 
+    const brandSchema = z.object({
+      id: z.string(),
+      name: z.string(),
+      slug: z.string(),
+    });
+
+    const searchSchema = z.array(brandSchema);
+
     cy.request({
       method: 'POST',
       url: '/brands',
       body: requestBody,
-    }).then((response) => {
-      expect(response.status).to.eql(201);
-      // Extract the ID from the response body
-      brandId = response.body.id;
-      responseBody = response.body;
-      expect(brandId).to.exist;
+    })
+      .validateSchemaZod(brandSchema)
+      .then((response) => {
+        expect(response.status).to.eql(201);
+        // Extract the ID from the response body
+        brandId = response.body.id;
+        responseBody = response.body;
+        expect(brandId).to.exist;
 
-      cy.request({
-        method: 'GET',
-        url: `/brands/search?q=brand-${uniqueId}`,
-      }).then((getResponse) => {
-        expect(getResponse.status).to.eql(200);
-        expect(getResponse.body).to.eql([responseBody]);
+        cy.request({
+          method: 'GET',
+          url: `/brands/search?q=brand-${uniqueId}`,
+        })
+          .validateSchemaZod(searchSchema)
+          .then((getResponse) => {
+            expect(getResponse.status).to.eql(200);
+            expect(getResponse.body).to.eql([responseBody]);
+          });
       });
-    });
   });
 });

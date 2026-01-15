@@ -1,10 +1,21 @@
 /// <reference types="cypress" />
 import { faker } from '@faker-js/faker';
+import { z } from 'zod';
 
 describe('Post Request', () => {
   it('Create a new category via /categories api', () => {
     const name = faker.company.name();
     const slug = faker.helpers.slugify(name.toLowerCase());
+
+    const categorySchema = z.object({
+      id: z.string(),
+      name: z.string(),
+      slug: z.string(),
+    });
+
+    const updateCategorySchema = z.object({
+      success: z.boolean(),
+    });
 
     cy.request({
       method: 'POST',
@@ -13,28 +24,32 @@ describe('Post Request', () => {
         name: name,
         slug: slug,
       },
-    }).then((response) => {
-      expect(response.status).to.eql(201);
-      expect(response.body.name).to.eq(name);
-      expect(response.body.slug).to.eq(slug);
+    })
+      .validateSchemaZod(categorySchema)
+      .then((response) => {
+        expect(response.status).to.eql(201);
+        expect(response.body.name).to.eq(name);
+        expect(response.body.slug).to.eq(slug);
 
-      let catId = response.body.id;
-      cy.log(catId);
+        let catId = response.body.id;
+        cy.log(catId);
 
-      cy.request({
-        method: 'PUT',
-        url: `/categories/${catId}`,
-        body: {
-          name: `${name}-new`,
-          slug: `${slug}-new`,
-        },
-      }).then((response) => {
-        let responseBody = {
-          success: true,
-        };
-        expect(response.status).to.eql(200);
-        expect(response.body).to.eql(responseBody);
+        cy.request({
+          method: 'PUT',
+          url: `/categories/${catId}`,
+          body: {
+            name: `${name}-new`,
+            slug: `${slug}-new`,
+          },
+        })
+          .validateSchemaZod(updateCategorySchema)
+          .then((response) => {
+            let responseBody = {
+              success: true,
+            };
+            expect(response.status).to.eql(200);
+            expect(response.body).to.eql(responseBody);
+          });
       });
-    });
   });
 });
