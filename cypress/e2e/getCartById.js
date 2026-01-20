@@ -3,7 +3,6 @@ import { z } from 'zod';
 
 describe('Get Cart By ID test', () => {
   let cartId;
-  let productId;
 
   it('Create a new item via /carts api', () => {
     const cartSchema = z.object({

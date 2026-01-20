@@ -1,0 +1,7 @@
+{
+  "searchBrands": {
+    "search": "test",
+    "page": 1,
+    "limit": 10
+  }
+}

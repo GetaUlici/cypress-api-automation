@@ -1,0 +1,13 @@
+{
+  "createBrand": {
+    "name": "Test Brand",
+    "slug": "test-brand"
+  },
+  "updateBrand": {
+    "name": "Updated Test Brand",
+    "slug": "updated-test-brand"
+  },
+  "partialUpdateBrand": {
+    "slug": "patched-test-brand"
+  }
+}
